@@ -24,7 +24,11 @@ public class Main
         //System.out.println(puzzle.toString());
 
         //System.out.println(getPeers(puzzle, 0, 0).toString());
-        System.out.println(symmetricDifference(getPeers(puzzle, 6, 8), possibilities));
+        //System.out.println(symmetricDifference(getPeers(puzzle, 6, 8), possibilities));
+        solvePuzzle(puzzle);
+
+        System.out.println(puzzle.toString());
+        System.out.println(symmetricDifference(getPeers(puzzle, 2, 7), possibilities));
     }
 
     public static Puzzle solvePuzzle(Puzzle puzzle)
@@ -46,7 +50,22 @@ public class Main
         ArrayList<Integer> possibilities = new ArrayList<>();
         Collections.addAll(possibilities, fullPossibilityList);
 
+        ArrayList<Integer> tempList;
 
+        for (int k = 0; k < 9; k++)
+        {
+            for (int l = 0; l < 9; l++)
+            {
+                tempList = symmetricDifference(getPeers(puzzle, k, l), possibilities);
+
+                if (tempList.size() == 1 || tempList.size() == 2)
+                {
+                    puzzle.data[l][k] = tempList.get(tempList.size() - 1);
+                    if (puzzle.data[l][k] != tempList.get(tempList.size() - 1))
+                        System.out.print("Error");
+                }
+            }
+        }
 
         return puzzle;
     }
@@ -68,28 +87,28 @@ public class Main
         {
             if (x != i)
             {
-                System.out.print(puzzle.data[j][x]);
+//                System.out.print(puzzle.data[j][x]);
                 peers.add(puzzle.data[j][x]);
             }
-            else
-                System.out.print("x");
+//            else
+//                System.out.print("x");
         }
 
-        System.out.print(",");
+//        System.out.print(",");
 
         //Add peers in the same column
         for (int y = 0; y < 9; y++)
         {
             if (y != j)
             {
-                System.out.print(puzzle.data[y][i]);
+//                System.out.print(puzzle.data[y][i]);
                 peers.add(puzzle.data[y][i]);
             }
-            else
-                System.out.print("y");
+//            else
+//                System.out.print("y");
         }
 
-        System.out.print("\n");
+//        System.out.print("\n");
 
         //Add peers in same section
         //Left section
