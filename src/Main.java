@@ -14,30 +14,75 @@ public class Main
 
     public static void main(String[] args)
     {
+        //Convert int array to ArrayList<Integer>
         ArrayList<Integer> possibilities = new ArrayList<>();
         Collections.addAll(possibilities, fullPossibilityList);
 
+        //Make a new puzzle
         Puzzle puzzle = new Puzzle();
-        System.out.println("\n" + puzzle.toString());
-        solvePuzzle(puzzle);
-        System.out.println(puzzle.toString());
 
+        //Use test case 1
+        puzzle.makeTestCase1();
+
+        //Print out the unsolved puzzle
+        System.out.println("\n" + puzzle.toString());
+
+        //Solve the puzzle
+        Puzzle solvedPuzzle = solvePuzzle(puzzle);
+
+        //Print out the solved puzzle
+        System.out.println(solvedPuzzle.toString());
+
+        //Print out the coordinates of any remaining unknown cells and their possibilities
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++)
-                if (puzzle.data[i][j] == 0)
-                    System.out.println("(" + i + ", " + j + "): " + symmetricDifference(getPeers(puzzle, i, j), possibilities));
+                if (solvedPuzzle.data[i][j] == 0)
+                    System.out.println("(" + i + ", " + j + "): " + symmetricDifference(getPeers(solvedPuzzle, i, j), possibilities));
     }
 
+    /**
+     * Solves a puzzle
+     *
+     * @param puzzle The puzzle to solve
+     * @return       The solves puzzle
+     */
     public static Puzzle solvePuzzle(Puzzle puzzle)
     {
-        for (int i = 0; i < 9; i++)
-            for (int j = 0; j < 9; j++)
-                if (puzzle.data[i][j] == 0)
-                    puzzle = solveCell(puzzle, i, j);
+        Puzzle solvedPuzzle = new Puzzle();
+        boolean keepSolving = true, foundZero;
 
-        return puzzle;
+        while (keepSolving)
+        {
+            //Assume no zero will be found
+            foundZero = false;
+
+            //Solve each cell
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                    if (puzzle.data[i][j] == 0)
+                        solvedPuzzle = solveCell(puzzle, i, j);
+
+            //Scan the puzzle for zeroes
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                    if (solvedPuzzle.data[i][j] == 0)
+                        foundZero = true;
+
+            //Solve again if a zero was found
+            keepSolving = foundZero;
+        }
+
+        return solvedPuzzle;
     }
 
+    /**
+     * Solves one cell based on possible values
+     *
+     * @param puzzle The puzzle with the unsolved cell
+     * @param i      The x coordinate of the cell
+     * @param j      The y coordinate of the cell
+     * @return       The puzzle with the solved cell
+     */
     public static Puzzle solveCell(Puzzle puzzle, int i, int j)
     {
         ArrayList<Integer> possibilities = new ArrayList<>();
@@ -45,24 +90,33 @@ public class Main
 
         ArrayList<Integer> tempList;
 
-        for (int k = 0; k < 9; k++)
-            for (int l = 0; l < 9; l++)
-            {
-                tempList = symmetricDifference(getPeers(puzzle, k, l), possibilities);
+        tempList = symmetricDifference(getPeers(puzzle, i, j), possibilities);
 
-                if (tempList.size() == 1 || tempList.size() == 2)
-                {
-                    puzzle.data[k][l] = tempList.get(tempList.size() - 1);
-                    if (puzzle.data[k][l] != tempList.get(tempList.size() - 1))
-                        System.out.print("Error");
-                }
-            }
+        if (tempList.size() == 1 || tempList.size() == 2)
+        {
+            puzzle.data[i][j] = tempList.get(tempList.size() - 1);
+            if (puzzle.data[i][j] != tempList.get(tempList.size() - 1))
+                System.out.print("Error");
+        }
+
+//        for (int k = 0; k < 9; k++)
+//            for (int l = 0; l < 9; l++)
+//            {
+//                tempList = symmetricDifference(getPeers(puzzle, k, l), possibilities);
+//
+//                if (tempList.size() == 1 || tempList.size() == 2)
+//                {
+//                    puzzle.data[k][l] = tempList.get(tempList.size() - 1);
+//                    if (puzzle.data[k][l] != tempList.get(tempList.size() - 1))
+//                        System.out.print("Error");
+//                }
+//            }
 
         return puzzle;
     }
 
     /**
-     * Returns the peers of a cell (duplicate peers are removed)
+     * Gets the peers of a cell (duplicate peers are removed)
      *
      * @param puzzle The puzzle to get peers from
      * @param i      The x coordinate of the cell
@@ -215,7 +269,7 @@ public class Main
     }
 
     /**
-     * Returns the symmetric difference of two sets
+     * Calculates the symmetric difference of two sets
      *
      * @param a Set a
      * @param b Set b
