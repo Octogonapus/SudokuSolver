@@ -14,33 +14,18 @@ public class Main
 
     public static void main(String[] args)
     {
-        ArrayList<Integer> possibilities = new ArrayList<>();
-        Collections.addAll(possibilities, fullPossibilityList);
-
         Puzzle puzzle = new Puzzle();
         System.out.println("\n" + puzzle.toString());
-
-        //puzzle = solvePuzzle(puzzle);
-        //System.out.println(puzzle.toString());
-
-        //System.out.println(getPeers(puzzle, 0, 0).toString());
-        //System.out.println(symmetricDifference(getPeers(puzzle, 6, 8), possibilities));
         solvePuzzle(puzzle);
-
         System.out.println(puzzle.toString());
-        System.out.println(symmetricDifference(getPeers(puzzle, 2, 7), possibilities));
     }
 
     public static Puzzle solvePuzzle(Puzzle puzzle)
     {
         for (int i = 0; i < 9; i++)
-        {
             for (int j = 0; j < 9; j++)
-            {
                 if (puzzle.data[i][j] == 0)
                     puzzle = solveCell(puzzle, i, j);
-            }
-        }
 
         return puzzle;
     }
@@ -53,7 +38,6 @@ public class Main
         ArrayList<Integer> tempList;
 
         for (int k = 0; k < 9; k++)
-        {
             for (int l = 0; l < 9; l++)
             {
                 tempList = symmetricDifference(getPeers(puzzle, k, l), possibilities);
@@ -65,7 +49,6 @@ public class Main
                         System.out.print("Error");
                 }
             }
-        }
 
         return puzzle;
     }
@@ -84,31 +67,13 @@ public class Main
 
         //Add peers in the same row
         for (int x = 0; x < 9; x++)
-        {
             if (x != i)
-            {
-//                System.out.print(puzzle.data[j][x]);
                 peers.add(puzzle.data[j][x]);
-            }
-//            else
-//                System.out.print("x");
-        }
-
-//        System.out.print(",");
 
         //Add peers in the same column
         for (int y = 0; y < 9; y++)
-        {
             if (y != j)
-            {
-//                System.out.print(puzzle.data[y][i]);
                 peers.add(puzzle.data[y][i]);
-            }
-//            else
-//                System.out.print("y");
-        }
-
-//        System.out.print("\n");
 
         //Add peers in same section
         //Left section
@@ -118,7 +83,6 @@ public class Main
             if (j <= 2)
             {
                 for (int k = 0; k <= 2; k++)
-                {
                     for (int l = 0; l <= 2; l++)
                     {
                         if (k == i && l == j)
@@ -126,13 +90,11 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
             //Bottom section
             else if (j >= 6)
             {
                 for (int k = 0; k <= 2; k++)
-                {
                     for (int l = 6; l <= 8; l++)
                     {
                         if (k == i && l == j)
@@ -140,13 +102,11 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
             //Middle section
             else
             {
                 for (int k = 0; k <= 2; k++)
-                {
                     for (int l = 3; l <= 5; l++)
                     {
                         if (k == i && l == j)
@@ -154,7 +114,6 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
         }
         //Right section
@@ -164,7 +123,6 @@ public class Main
             if (j <= 2)
             {
                 for (int k = 6; k <= 8; k++)
-                {
                     for (int l = 0; l <= 2; l++)
                     {
                         if (k == i && l == j)
@@ -172,13 +130,11 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
             //Bottom section
             else if (j >= 6)
             {
                 for (int k = 6; k <= 8; k++)
-                {
                     for (int l = 6; l <= 8; l++)
                     {
                         if (k == i && l == j)
@@ -186,13 +142,11 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
             //Middle section
             else
             {
                 for (int k = 6; k <= 8; k++)
-                {
                     for (int l = 3; l <= 5; l++)
                     {
                         if (k == i && l == j)
@@ -200,7 +154,6 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
         }
         //Middle section
@@ -210,7 +163,6 @@ public class Main
             if (j <= 2)
             {
                 for (int k = 3; k <= 5; k++)
-                {
                     for (int l = 0; l <= 2; l++)
                     {
                         if (k == i && l == j)
@@ -218,13 +170,11 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
             //Bottom section
             else if (j >= 6)
             {
                 for (int k = 3; k <= 5; k++)
-                {
                     for (int l = 6; l <= 8; l++)
                     {
                         if (k == i && l == j)
@@ -232,13 +182,11 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
             //Middle section
             else
             {
                 for (int k = 3; k <= 5; k++)
-                {
                     for (int l = 3; l <= 5; l++)
                     {
                         if (k == i && l == j)
@@ -246,7 +194,6 @@ public class Main
                         else
                             peers.add(puzzle.data[l][k]);
                     }
-                }
             }
         }
 
