@@ -24,8 +24,8 @@ public class Main
 
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++)
-                if (puzzle.data[j][i] == 0)
-                    System.out.println("(" + j + ", " + i + "): " + symmetricDifference(getPeers(puzzle, i, j), possibilities));
+                if (puzzle.data[i][j] == 0)
+                    System.out.println("(" + i + ", " + j + "): " + symmetricDifference(getPeers(puzzle, i, j), possibilities));
     }
 
     public static Puzzle solvePuzzle(Puzzle puzzle)
@@ -52,8 +52,8 @@ public class Main
 
                 if (tempList.size() == 1 || tempList.size() == 2)
                 {
-                    puzzle.data[l][k] = tempList.get(tempList.size() - 1);
-                    if (puzzle.data[l][k] != tempList.get(tempList.size() - 1))
+                    puzzle.data[k][l] = tempList.get(tempList.size() - 1);
+                    if (puzzle.data[k][l] != tempList.get(tempList.size() - 1))
                         System.out.print("Error");
                 }
             }
@@ -76,12 +76,12 @@ public class Main
         //Add peers in the same row
         for (int x = 0; x < 9; x++)
             if (x != i)
-                peers.add(puzzle.data[j][x]);
+                peers.add(puzzle.data[x][j]);
 
         //Add peers in the same column
         for (int y = 0; y < 9; y++)
             if (y != j)
-                peers.add(puzzle.data[y][i]);
+                peers.add(puzzle.data[i][y]);
 
         //Add peers in same section
         //Left section
@@ -96,7 +96,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
             //Bottom section
@@ -108,7 +108,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
             //Middle section
@@ -120,7 +120,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
         }
@@ -136,7 +136,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
             //Bottom section
@@ -148,7 +148,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
             //Middle section
@@ -160,7 +160,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
         }
@@ -176,7 +176,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
             //Bottom section
@@ -188,7 +188,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
             //Middle section
@@ -200,7 +200,7 @@ public class Main
                         if (k == i && l == j)
                             assert true;
                         else
-                            peers.add(puzzle.data[l][k]);
+                            peers.add(puzzle.data[k][l]);
                     }
             }
         }
