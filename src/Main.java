@@ -14,10 +14,18 @@ public class Main
 
     public static void main(String[] args)
     {
+        ArrayList<Integer> possibilities = new ArrayList<>();
+        Collections.addAll(possibilities, fullPossibilityList);
+
         Puzzle puzzle = new Puzzle();
         System.out.println("\n" + puzzle.toString());
         solvePuzzle(puzzle);
         System.out.println(puzzle.toString());
+
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                if (puzzle.data[j][i] == 0)
+                    System.out.println("(" + j + ", " + i + "): " + symmetricDifference(getPeers(puzzle, i, j), possibilities));
     }
 
     public static Puzzle solvePuzzle(Puzzle puzzle)
